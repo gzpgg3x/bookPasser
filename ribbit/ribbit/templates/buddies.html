@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block login %}
+    {% with user.username as username %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+ 
+{% block content %}
+    <div class="panel right">
+        <h1>Create a bookPasser</h1>
+        <p>
+            <form action="/submit" method="post">
+            {% for field in bookPasser_form %}{% csrf_token %}
+            {{ field }}
+            {% endfor %}
+            <input type="hidden" value="{{ next_url }}" name="next_url">
+            <input type="submit" value="bookPasser!">
+            </form>
+        </p>
+    </div>
+    <div class="panel left">
+        <h1>Buddies' bookPassers</h1>
+        {% for bookPasser in bookPassers %}
+        <div class="bookPasserWrapper">
+            <a href="/users/{{ bookPasser.user.username }}">
+                <img class="avatar" src="{{ bookPasser.user.profile.gravatar_url }}">
+                <span class="name">{{ bookPasser.user.first_name }}</span>
+            </a>
+            @{{ bookPasser.user.username }}
+            <p>
+                {{ bookPasser.content }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
