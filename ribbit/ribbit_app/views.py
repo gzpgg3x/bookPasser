@@ -90,7 +90,7 @@ def public(request, bookPasser_form=None):
 
 def get_latest(user):
     try:
-        return user.bookPasser_set.order_by('-id')[0]
+        return user.bookpasser_set.order_by('-id')[0]
     except IndexError:
         return ""
 @login_required
@@ -106,7 +106,7 @@ def users(request, username="", bookPasser_form=None):
             # Self Profile or buddies' profile
             return render(request, 'user.html', {'user': user, 'bookPassers': bookPassers, })
         return render(request, 'user.html', {'user': user, 'bookPassers': bookPassers, 'follow': True, })
-    users = User.objects.all().annotate(bookPasser_count=Count('bookPasser'))
+    users = User.objects.all().annotate(bookPasser_count=Count('bookpasser'))
     bookPassers = map(get_latest, users)
     obj = zip(users, bookPassers)
     bookPasser_form = bookPasser_form or bookPasserForm()

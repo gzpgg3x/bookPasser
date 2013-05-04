@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^logout$', 'ribbit_app.views.logout_view'), # logout
     url(r'^signup$', 'ribbit_app.views.signup'), # signup
 
-    url(r'^ribbits$', 'ribbit_app.views.public'), # public ribbits
+    url(r'^bookPassers$', 'ribbit_app.views.public'), # public ribbits
     url(r'^submit$', 'ribbit_app.views.submit'), # submit new ribbit
 
     url(r'^users/$', 'ribbit_app.views.users'),
