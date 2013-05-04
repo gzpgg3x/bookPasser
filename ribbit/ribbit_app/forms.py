@@ -36,7 +36,8 @@ class AuthenticateForm(AuthenticationForm):
         return form
 
 class bookPasserForm(forms.ModelForm):
-    content = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class': 'bookPasserText'}))
+    # content = "a"
+    # content = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class': 'bookPasserText'}))
  
     def is_valid(self):
         form = super(bookPasserForm, self).is_valid()

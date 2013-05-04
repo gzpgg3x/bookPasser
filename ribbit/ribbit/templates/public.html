@@ -17,7 +17,7 @@
         <h1>Public bookPassers</h1>
         {% for bookPasser in bookPassers %}
         <div class="bookPasserWrapper">
-            <img class="avatar" src="{{ bookPasser.user.profile.gravatar_url }}">
+
             <span class="name">{{ bookPasser.user.first_name }}</span>@{{ bookPasser.user.username }}
             <span class="time">{{ bookPasser.creation_date|timesince }}</span>
             <p>{{ bookPasser.content }}</p>
