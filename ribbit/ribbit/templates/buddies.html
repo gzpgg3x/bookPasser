@@ -25,19 +25,62 @@
         </p>
     </div>
     <div class="panel left">
-        <h1>Buddies' bookPassers</h1>
-        {% for bookPasser in bookPassers %}
-        <div class="bookPasserWrapper">
-            <a href="/users/{{ bookPasser.user.username }}">
-                <img class="avatar" src="{{ bookPasser.user.profile.gravatar_url }}">
-                <span class="name">{{ bookPasser.user.first_name }}</span>
-            </a>
-            @{{ bookPasser.user.username }}
-            <p>
-                {{ bookPasser.content }}
-            </p>
-        </div>
-        {% endfor %}
-            <div id="map"><img /></div>
+
+
+
+
+	    <div id="map"><img /></div>        
+	    <div id="shout-form">
+	      <form name="shout" id="shout">
+	        <p>
+	          <label for="author">Scan Starting Date</label><br />
+	          <input type="text" name="author" id="author" />
+	        </p>
+	        <p>
+	          <label for="message">Scan Ending Date</label><br />
+	          <input type="text" name="message" id="message" />
+	        </p>
+
+	        <p>
+	          <label for="keywords">Scan Key Words</label><br />
+	          <input type="text" name="keywords" id="keywords" />
+	        </p>
+
+	        <p>          
+	        <!--   <textarea name="message" id="message"></textarea>
+	        </p>
+	        <p class="error"></p>
+	        <p> -->
+	          <input type="submit" name="submit" value="SUBMIT!" />
+	        </p>
+	      </form>
+	    </div>
+    
+
+
+
+
+
+
+
     </div>
+
+
+	  
+	
+	  
+
+
+
+	  
+	
+	  
+
+	  
+	  <div style="clear:both;"></div>
+
+
+
+
+
 {% endblock %}
