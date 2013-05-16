@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     url(r'^users/$', 'ribbit_app.views.users'),
     url(r'^users/(?P<username>\w{0,30})/$', 'ribbit_app.views.users'),
     url(r'^follow$', 'ribbit_app.views.follow'),
+
+    url(r'^api/shouts/new$', 'ribbit_app.api.new_shout'),
+    url(r'^api/shouts/get$', 'ribbit_app.api.get_shouts'),
 )
 
 

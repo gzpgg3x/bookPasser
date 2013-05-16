@@ -2,7 +2,9 @@
 <html>
 <head>
 	<link rel="stylesheet/less" href="style.less">
-	<script src="less.js"></script>
+    {% block js %}
+	    <script src="less.js"></script>
+    {% endblock %}
 </head>
 <body>
 	<header>

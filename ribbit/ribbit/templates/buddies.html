@@ -8,7 +8,7 @@
 {% block js %}
 <script src="http://maps.google.com/maps/api/js?sensor=false"  
           type="text/javascript"></script> 
-<script type="text/javascript" src="/static/js/shout.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}less.js"></script>
 {% endblock %}
  
 {% block content %}
@@ -54,6 +54,10 @@
 	          <input type="submit" name="submit" value="SUBMIT!" />
 	        </p>
 	      </form>
+	      <form name="update_radius" id="update_radius">
+	        <input type="text" name="radius" id="radius" value="1" />
+	        <input type="submit" name="submit" value="ANNOUNCEMENTS" />
+          </form>
 	    </div>
     
 

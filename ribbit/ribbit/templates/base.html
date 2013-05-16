@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet/less" href="{{ STATIC_URL }}style.less">
-    <script src="{{ STATIC_URL }}less.js"></script>
+    {% block js %}
+        <script src="{{ STATIC_URL }}less.js"></script>
+    {% endblock %}
+
 </head>
 <body>
     <header>
