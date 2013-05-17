@@ -68,6 +68,7 @@ def new_shout(request):
     ddd = 'http://nypl.bibliocommons.com/search?t=title&q=' + kw + '&commit=Search&searchOpt=catalogue' 
     responser=get_url_content(ddd)
     # print responser
+    bkkw=bkkw.lower()
     print bkkw
     for link in BeautifulSoup(responser, parseOnlyThese=SoupStrainer('a')):
         if link.has_key('href'):
@@ -206,7 +207,7 @@ def get_shouts(request):
             'zipcode': shout.zip,
             'address': shout.address,
             'count': shout.count,
-            'address': shout.address, #address,
+            # 'address': shout.address, #address,
             'book': shout.book, 
             'branchname': shout.branchname            
         })
