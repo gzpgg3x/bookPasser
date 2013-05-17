@@ -43,5 +43,6 @@ class Shout(models.Model):
         #return "%s: %s" % (self.author, self.message, self.a[:100])
 
 class Branch(models.Model):
-    branchname = models.CharField(max_length=50, blank=True)
+    branchname = models.CharField(max_length=80, blank=True)
     branchaddress = models.CharField(max_length=100,blank=True)
+    branchphone = models.CharField(max_length=14,blank=True)

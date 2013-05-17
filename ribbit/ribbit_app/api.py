@@ -30,14 +30,14 @@ def new_shout(request):
     br=[]
     bradd=[]
     con = None
-    con = lite.connect("C:/Users/fpan/PY-Programs/publishing/bookieGoer/bookieGoer/db.db")
+    con = lite.connect("C:/Users/fpan/PY-Programs/bookPasser/ribbit/ribbit/database.db")
     cur = con.cursor()
     brcount=0
     br=range(100)
     bradd=range(100)
-    for row in cur.execute("SELECT * FROM discover_branch"): #order by visit_count DESC"):   
+    for row in cur.execute("SELECT * FROM ribbit_app_branch"): #order by visit_count DESC"):   
         br[brcount] = row[1]
-        bradd[brcount] = row[2]
+        bradd[brcount] = row[0]
         print brcount
         print br[brcount]
         print bradd[brcount]
@@ -67,11 +67,8 @@ def new_shout(request):
     # ddd = 'http://searchwww.sec.gov/EDGARFSClient/jsp/EDGAR_MainAccess.jsp?search_text='+keywords+'&sort=Date&formType=Form8K&isAdv=true&stemming=true&numResults=100&fromDate=' + d + '&toDate=' + dd + '&numResults=100' 
     ddd = 'http://nypl.bibliocommons.com/search?t=title&q=' + kw + '&commit=Search&searchOpt=catalogue' 
     responser=get_url_content(ddd)
-    # responser='# encoding: utf-8' + responser
-    # print bkkw
-    # bkind = responser.find("html")
-    # bkind = responser.find(bkkw)
-    # print bkind
+    # print responser
+    print bkkw
     for link in BeautifulSoup(responser, parseOnlyThese=SoupStrainer('a')):
         if link.has_key('href'):
             y = link['href']
@@ -89,6 +86,7 @@ def new_shout(request):
                 beg = clean_text.index("Available to borrow",1)
                 end = clean_text.index("Not available at this time",beg)
                 clean_text = clean_text[beg:end]
+                # print clean_text
                 for r in range(brcount):
                     # r=r+1
                     print br[r]
