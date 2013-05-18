@@ -27,6 +27,7 @@ import sqlite3 as lite
 @csrf_exempt
 @require_POST
 def new_shout(request):
+    # READ IN ALL THE BRANCH AND ADDRESS
     br=[]
     bradd=[]
     con = None
@@ -42,9 +43,8 @@ def new_shout(request):
         print br[brcount]
         print bradd[brcount]
         brcount=brcount+1    
-    # print br[10]
-    # print bradd[10]
-    Shout.objects.all().delete()
+
+
     d=""
     dd=""
     lat = request.POST['lat']
@@ -52,6 +52,64 @@ def new_shout(request):
     author = request.POST['author']
     message = request.POST['message']
     keywords = request.POST['keywords']
+    # keywords = keywords.lower()
+
+    # START TO READ FROM BOOKPASSER, WRITE INTO SHOUT TABLE THE BOOK I CHECKED-IN
+    # con = lite.connect("C:/Users/fpan/PY-Programs/bookPasser/ribbit/ribbit/database.db")
+    # cur = con.cursor()
+    count=0
+    response = []
+    chkincount=0
+    chkin=range(15)
+    chkinloc=range(15)
+    Shout.objects.all().delete()
+    for row in cur.execute("SELECT * FROM ribbit_app_bookpasser"): #order by visit_count DESC"):   
+        # chkin[chkincount] = row[2]
+        # chkinloc[chkincount] = row[3]
+        # chkincount=chkincount+1 
+        # if keywords == chkin[chkincount]:                      
+        #     count = chkincount
+        #     print chkin[chkincount]
+        #     print chkinloc[chkincount]
+        #     print chkincount
+        #     print chkin[chkincount]
+        #     print chkinloc[chkincount]
+        #     count=count+1    
+        if keywords == row[2]:
+            chkin[chkincount] = row[2]
+            chkinloc[chkincount] = row[3]
+            print chkin[chkincount]
+            print chkinloc[chkincount]          
+            chkincount = chkincount + 1
+
+    for s in range(chkincount):
+        # r=r+1
+        print chkin[s]
+        print chkinloc[s]
+        address = chkinloc[s]
+        book = chkin[s]
+        branchname = "fpan"
+        count = count + 1
+        shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count)
+
+        response.append({
+            'date_created': "", #shout.date_created.strftime("%b %d at %I:%M:%S%p"),
+            'lat': "", #str(shout.lat),
+            'lng': "", #str(shout.lng),
+            'author': "", #author,
+            'message': "", #message,
+            'zipcode': "", #zip,
+            'address': address, #address,
+            'book': book, 
+            'branchname': "",
+            'count': count
+        })
+
+
+
+    # START TO READ FROM SHOUT TABLE
+    # Shout.objects.all().delete()
+
     kw = keywords.replace(" ", "+")
     bkkw = keywords.replace(" ", "_")
     bkkw = "_" + bkkw
@@ -62,8 +120,8 @@ def new_shout(request):
     d=author
     dd=message
     a=0
-    count=0
-    response = []
+    # count=0
+    # response = []
     # ddd = 'http://searchwww.sec.gov/EDGARFSClient/jsp/EDGAR_MainAccess.jsp?search_text='+keywords+'&sort=Date&formType=Form8K&isAdv=true&stemming=true&numResults=100&fromDate=' + d + '&toDate=' + dd + '&numResults=100' 
     ddd = 'http://nypl.bibliocommons.com/search?t=title&q=' + kw + '&commit=Search&searchOpt=catalogue' 
     responser=get_url_content(ddd)
