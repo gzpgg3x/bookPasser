@@ -12,7 +12,9 @@ import hashlib
 
 
 class bookPasser(models.Model):
-    content = models.CharField(max_length=140)
+    content = models.CharField(max_length=40,blank=True)
+    location = models.CharField(max_length=100,blank=True)
+    message = models.CharField(max_length=100,blank=True)
     user = models.ForeignKey(User)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
 
@@ -27,7 +29,7 @@ User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 class Shout(models.Model):
     lat = models.DecimalField(max_digits=10, decimal_places=7)
     lng = models.DecimalField(max_digits=10, decimal_places=7)
-    author = models.CharField(max_length=40)
+    author = models.CharField(max_length=40,blank=True)
     message = models.TextField()
     zip = models.CharField(max_length=15,blank=True)
     address = models.CharField(max_length=100,blank=True)

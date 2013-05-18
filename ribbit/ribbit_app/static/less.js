@@ -194,15 +194,15 @@ function displayMap(address, count, branchname) {
         locations.push([contentA, contentB]);
 
         var l = locations.length - 1;
-        alert('l = ' + l);
+        // alert('l = ' + l);
         var content = '';
         var j = locations.length;
         //alert('j = ' + j);
         content += j;
-        alert('content = ' + content);
+        // alert('content = ' + content);
         seqNum = seq.toString();
         seqNum = "NYPL Branch No. " + seqNum + ": " + branchname;
-        alert(seqNum);
+        // alert(seqNum);
         //seqNum = seqNum.concat(company);
         //alert('seqNum = ' + seqNum);
  
