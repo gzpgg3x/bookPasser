@@ -201,7 +201,7 @@ function displayMap(address, count, branchname) {
         content += j;
         alert('content = ' + content);
         seqNum = seq.toString();
-        seqNum = seqNum + ": " + branchname;
+        seqNum = "NYPL Branch No. " + seqNum + ": " + branchname;
         alert(seqNum);
         //seqNum = seqNum.concat(company);
         //alert('seqNum = ' + seqNum);
