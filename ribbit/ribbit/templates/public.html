@@ -5,9 +5,11 @@
         <h1>Create a bookPasser</h1>
         <p>
             <form action="/submit" method="post">
+
             {% for field in bookPasser_form %}{% csrf_token %}
             {{ field }}
             {% endfor %}
+
             <input type="hidden" value="{{ next_url }}" name="next_url">
             <input type="submit" value="bookPasser!">
             </form>

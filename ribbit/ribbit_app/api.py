@@ -37,12 +37,15 @@ def new_shout(request):
     brcount=0
     br=range(100)
     bradd=range(100)
+    brphone=range(100)
     for row in cur.execute("SELECT * FROM ribbit_app_branch"): 
         br[brcount] = row[1]
         bradd[brcount] = row[0]
+        brphone[brcount] = row[3]
         print brcount
         print br[brcount]
         print bradd[brcount]
+        print brphone[brcount]
         brcount=brcount+1    
 
 
@@ -61,15 +64,16 @@ def new_shout(request):
     chkincount=0
     chkin=range(20)
     chkinloc=range(20)
+    #chkinemail=range(20)
     Shout.objects.all().delete()
     for row in cur.execute("SELECT * FROM ribbit_app_bookpasser"):    
         if keywords == row[2]:
             # print keywords
             # print row[2]
             chkin[chkincount] = row[2]
-            chkinloc[chkincount] = row[4]
+            chkinloc[chkincount] = row[4] + " || " + row[3]
             print chkin[chkincount]
-            print chkinloc[chkincount]          
+            #print chkinloc[chkincount]          
             chkincount = chkincount + 1
 
     for s in range(chkincount):
@@ -78,7 +82,7 @@ def new_shout(request):
         print chkinloc[s]
         address = chkinloc[s]
         book = chkin[s]
-        branchname = "fpan"
+        branchname = "Forrest Pan"
         #email = "guoqianp@gmail.com"
         status = row[5]
         print status
@@ -149,28 +153,35 @@ def new_shout(request):
                     except:
                         beg = 1
                     try:
-                        end = clean_text.index("Not available at this time",1)
+                        end = clean_text.index("Not available at this time",beg)
                     except:
                         end = len(clean_text)                        
-
-
+                    print beg
+                    print end
+                    clean_text = clean_text[beg:end]
                     for r in range(brcount):
                         # r=r+1
-                        print br[r]
+                        # print br[r]
                         try:
-                            x = clean_text.index(br[r],1)
+                            # x = clean_text.index(br[r],1)
+                            # print x
                             if br[r] in clean_text:
                                 address = bradd[r]
                                 book = keywords
-                                branchname = br[r]
+                                
                                 count = count + 1
+                                branchname = br[r] + " (NYPL Branch)"
                                 # print bradd[r]
                                 print br[r]
-                                if clean_text.index(branchname,1)>end:
-                                    status = "Not available"
-                                elif clean_text.index(branchname,1)>beg:
-                                    status = "Available"                                
-                                print status
+                                #print x
+                                print end
+                                print beg
+                                print br[r]
+                                # if clean_text.index(branchname,1)>end:
+                                #     status = "Not available"
+                                # elif clean_text.index(branchname,1)>beg:
+                                status = "Available"                                
+                                # print status
                         # print clean_text
                                 shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count,status=status)
 
@@ -224,6 +235,7 @@ def get_shouts(request):
             'count': shout.count,
             # 'address': shout.address, #address,
             'book': shout.book, 
+            'status': shout.status, 
             'branchname': shout.branchname            
         })
     # x=shout.book
