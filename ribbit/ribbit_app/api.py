@@ -56,6 +56,7 @@ def new_shout(request):
     author = request.POST['author']
     message = request.POST['message']
     keywords = request.POST['keywords']
+    print keywords
     # keywords = keywords.lower()
 
     # START TO READ FROM BOOKPASSER, WRITE INTO SHOUT TABLE THE BOOK I CHECKED-IN
@@ -114,6 +115,8 @@ def new_shout(request):
     # print kw
     zip="10001"
     address = ""
+    d=""
+    dd=""
     d=author
     dd=message
     a=0

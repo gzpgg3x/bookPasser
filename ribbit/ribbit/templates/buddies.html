@@ -13,7 +13,7 @@
  
 {% block content %}
     <div class="panel right">
-        <h1>Check-in Book @BookieGoer</h1>
+        <h1>Check-in Book @BookieGoer To Be the Nearest Copy</h1>
         <p>
             <form action="/submit" method="post">
             {% for field in bookPasser_form %}{% csrf_token %}
@@ -32,6 +32,8 @@
 	    <div id="map"><img /></div>        
 	    <div id="shout-form">
 	      <form name="shout" id="shout">
+
+
 	        <p>
 	          <label for="author">Scan Starting Date</label><br />
 	          <input type="text" name="author" id="author" />
