@@ -201,7 +201,7 @@ function displayMap(address, count, branchname) {
         content += j;
         // alert('content = ' + content);
         seqNum = seq.toString();
-        seqNum = "No. " + seqNum + ": " + branchname + "  ||  " + address;
+        seqNum = "Copy No. " + seqNum + ": @" + branchname + "  ||  " + "Location: " + address;
 
 
         //alert(seqNum);

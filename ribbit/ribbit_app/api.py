@@ -71,7 +71,7 @@ def new_shout(request):
             # print keywords
             # print row[2]
             chkin[chkincount] = row[2]
-            chkinloc[chkincount] = row[4] + " || " + row[3]
+            chkinloc[chkincount] = row[4] + " || " + "email: " + row[3]
             print chkin[chkincount]
             #print chkinloc[chkincount]          
             chkincount = chkincount + 1

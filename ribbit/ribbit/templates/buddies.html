@@ -13,14 +13,14 @@
  
 {% block content %}
     <div class="panel right">
-        <h1>Create a bookPasser</h1>
+        <h1>Check-in Book @BookieGoer</h1>
         <p>
             <form action="/submit" method="post">
             {% for field in bookPasser_form %}{% csrf_token %}
             {{ field }}
             {% endfor %}
             <input type="hidden" value="{{ next_url }}" name="next_url">
-            <input type="submit" value="bookPasser!">
+            <input type="submit" value="Submit!">
             </form>
         </p>
     </div>
@@ -42,7 +42,7 @@
 	        </p>
 
 	        <p>
-	          <label for="keywords">Scan Key Words</label><br />
+	          <label for="keywords">Book Title</label><br />
 	          <input type="text" name="keywords" id="keywords" />
 	        </p>
 
@@ -56,7 +56,7 @@
 	      </form>
 	      <form name="update_radius" id="update_radius">
 	        <input type="text" name="radius" id="radius" value="1" />
-	        <input type="submit" name="submit" value=" " />
+	        <input type="submit" name="submit" value=" RADIUS " />
           </form>
 	    </div>
     

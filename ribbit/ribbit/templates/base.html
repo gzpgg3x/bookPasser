@@ -13,12 +13,12 @@
     <header>
         <div class="wrapper">
 
-            <span>bookPasser</span>
+            <span>BookieGoer</span>
             {% block login %}
             <a href="/"> || Home ||</a>
-            <a href="/users/"> Public Profiles ||</a>
-            <a href="/users/{{ username }}"> My bookieGoer ||</a>
-            <a href="/bookPassers"> Public bookPassers ||</a>
+            <a href="/users/"> All Who Check-in Books ||</a>
+            <a href="/users/{{ username }}"> My BookieGoer Check-ins ||</a>
+            <a href="/bookPassers"> Book Check-ins By All ||</a>
             <form action="/logout">
                 <input type="submit" id="btnLogOut" value="Log Out">
             </form>
@@ -49,7 +49,7 @@
     </div>
     <footer>
         <div class="wrapper">
-            bookPasser - Locate your books!
+            BookieGoer - Discover the Nearest Copy!
 
         </div>
     </footer>
