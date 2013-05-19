@@ -59,15 +59,15 @@ def new_shout(request):
     count=0
     response = []
     chkincount=0
-    chkin=range(15)
-    chkinloc=range(15)
+    chkin=range(20)
+    chkinloc=range(20)
     Shout.objects.all().delete()
     for row in cur.execute("SELECT * FROM ribbit_app_bookpasser"):    
         if keywords == row[2]:
             # print keywords
             # print row[2]
             chkin[chkincount] = row[2]
-            chkinloc[chkincount] = row[3]
+            chkinloc[chkincount] = row[4]
             print chkin[chkincount]
             print chkinloc[chkincount]          
             chkincount = chkincount + 1
@@ -79,19 +79,24 @@ def new_shout(request):
         address = chkinloc[s]
         book = chkin[s]
         branchname = "fpan"
+        #email = "guoqianp@gmail.com"
+        status = row[5]
+        print status
         count = count + 1
-        shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count)
+        shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count,status=status)#,email=email)
 
         response.append({
             'date_created': "", #shout.date_created.strftime("%b %d at %I:%M:%S%p"),
             'lat': "", #str(shout.lat),
             'lng': "", #str(shout.lng),
             'author': "", #author,
-            'message': "", #message,
+            'message': "Available", #message,
             'zipcode': "", #zip,
             'address': address, #address,
             'book': book, 
-            'branchname': "",
+            'branchname': branchname,
+            #'email': email,
+            'status': status,
             'count': count
         })
 
@@ -151,8 +156,9 @@ def new_shout(request):
 
                     for r in range(brcount):
                         # r=r+1
-                        # print br[r]
+                        print br[r]
                         try:
+                            x = clean_text.index(br[r],1)
                             if br[r] in clean_text:
                                 address = bradd[r]
                                 book = keywords
@@ -166,7 +172,7 @@ def new_shout(request):
                                     status = "Available"                                
                                 print status
                         # print clean_text
-                                shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count)
+                                shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count,status=status)
 
                                 response.append({
                                     'date_created': "", #shout.date_created.strftime("%b %d at %I:%M:%S%p"),
@@ -178,9 +184,11 @@ def new_shout(request):
                                     'address': address, #address,
                                     'book': book, 
                                     'branchname': branchname,
+                                    'status': status,
                                     'count': count
                                 })
-                        except UnicodeEncodeError:
+                        # except UnicodeEncodeError:
+                        except:
                             pass
                     break
     # Bookpasser.objects.all().delete()

@@ -15,6 +15,7 @@ class bookPasser(models.Model):
     content = models.CharField(max_length=40,blank=True)
     location = models.CharField(max_length=100,blank=True)
     message = models.CharField(max_length=100,blank=True)
+    email = models.CharField(max_length=18,blank=True)
     user = models.ForeignKey(User)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
 
@@ -36,6 +37,7 @@ class Shout(models.Model):
     count = models.CharField(max_length=5,blank=True)
     book = models.CharField(max_length=60,blank=True)
     branchname = models.CharField(max_length=50, blank=True)
+    status = models.CharField(max_length=40,blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
