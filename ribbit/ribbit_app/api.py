@@ -27,6 +27,7 @@ import sqlite3 as lite
 @csrf_exempt
 @require_POST
 def new_shout(request):
+    # Bookpasser.objects.all().delete()
     # READ IN ALL THE BRANCH AND ADDRESS
     br=[]
     bradd=[]
@@ -63,6 +64,8 @@ def new_shout(request):
     Shout.objects.all().delete()
     for row in cur.execute("SELECT * FROM ribbit_app_bookpasser"):    
         if keywords == row[2]:
+            # print keywords
+            # print row[2]
             chkin[chkincount] = row[2]
             chkinloc[chkincount] = row[3]
             print chkin[chkincount]
@@ -115,42 +118,72 @@ def new_shout(request):
             y = link['href']
             if bkkw in y:      
                 print y
-                bkcode = y[11:25]
-                bkcode = 'http://nypl.bibliocommons.com/item/show_circulation/' + bkcode
-                # print bkcode 
-                responser=get_url_content(bkcode)
-                clean_text = nltk.clean_html(responser)
-                beg = clean_text.index("Available to borrow",1)
-                end = clean_text.index("Not available at this time",beg)
-                clean_text = clean_text[beg:end]
-                # print clean_text
-                for r in range(brcount):
-                    # r=r+1
-                    print br[r]
-                    if br[r] in clean_text:
-                        address = bradd[r]
-                        book = keywords
-                        branchname = br[r]
-                        count = count + 1
-                        print bradd[r]
-                # print clean_text
-                        shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count)
+                bkcode = y[11:y.index("_",1)]
+                # bkcode = y[11:25]
+                print bkcode
+                tstbkcode = 'http://nypl.bibliocommons.com/item/show/' + bkcode + bkkw
+                # print tstbkcode
+                tstresponser = get_url_content(tstbkcode)
+                tstclean_text = nltk.clean_html(tstresponser)
+                # bkpos = tstclean_text.index("DVD",1)
+                # print bkpos
+                # bkstr =  '(Book'
+                if '(Book' in tstclean_text:
+                    print "y"
+                    bkcode = 'http://nypl.bibliocommons.com/item/show_circulation/' + bkcode
+                    print bkcode
+                    # print bkcode 
+                    responser=get_url_content(bkcode)
+                    clean_text = nltk.clean_html(responser)
+                    # beg = clean_text.index("Available to borrow",1)
+                    # end = clean_text.index("Not available at this time",beg)
+                    # clean_text = clean_text[beg:end]
+                    # print clean_text
+                    try:
+                        beg = clean_text.index("Available to borrow",1)
+                    except:
+                        beg = 1
+                    try:
+                        end = clean_text.index("Not available at this time",1)
+                    except:
+                        end = len(clean_text)                        
 
-                        response.append({
-                            'date_created': "", #shout.date_created.strftime("%b %d at %I:%M:%S%p"),
-                            'lat': "", #str(shout.lat),
-                            'lng': "", #str(shout.lng),
-                            'author': "", #author,
-                            'message': "", #message,
-                            'zipcode': "", #zip,
-                            'address': address, #address,
-                            'book': book, 
-                            'branchname': branchname,
-                            'count': count
-                        })
 
-                break
+                    for r in range(brcount):
+                        # r=r+1
+                        # print br[r]
+                        try:
+                            if br[r] in clean_text:
+                                address = bradd[r]
+                                book = keywords
+                                branchname = br[r]
+                                count = count + 1
+                                # print bradd[r]
+                                print br[r]
+                                if clean_text.index(branchname,1)>end:
+                                    status = "Not available"
+                                elif clean_text.index(branchname,1)>beg:
+                                    status = "Available"                                
+                                print status
+                        # print clean_text
+                                shout = Shout.objects.create(lat=lat,lng=lng,author=author,message=message,book=book,address=address,branchname=branchname,count=count)
 
+                                response.append({
+                                    'date_created': "", #shout.date_created.strftime("%b %d at %I:%M:%S%p"),
+                                    'lat': "", #str(shout.lat),
+                                    'lng': "", #str(shout.lng),
+                                    'author': "", #author,
+                                    'message': "", #message,
+                                    'zipcode': "", #zip,
+                                    'address': address, #address,
+                                    'book': book, 
+                                    'branchname': branchname,
+                                    'count': count
+                                })
+                        except UnicodeEncodeError:
+                            pass
+                    break
+    # Bookpasser.objects.all().delete()
     return HttpResponse(json.dumps(response))
 
 def get_shouts(request):
