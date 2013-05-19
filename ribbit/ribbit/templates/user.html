@@ -16,7 +16,7 @@
             </a>
                 @{{ user.username }}
             <p>
-                {{ bookPassers.count }} bookPassers
+                {{ bookPassers.count }} book-check-in's @BookieGoer
                 <span class="spacing">{{ user.profile.follows.all.count }} Following</span>
                 <span class="spacing">{{ user.profile.followed_by.all.count }} Followers</span>
             </p>
@@ -31,7 +31,7 @@
     </div>
  
     <div class="panel left">
-        <h1>{{ user.first_name }}'s bookPassers</h1>
+        <h1>{{ user.first_name }}'s book check-in's @BookieGoer</h1>
         {% for bookPasser in bookPassers %}
         <div class="bookPasserWrapper">
             <a href="/users/{{ user.username }}">

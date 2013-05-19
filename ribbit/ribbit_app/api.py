@@ -63,14 +63,14 @@ def new_shout(request):
     count=0
     response = []
     chkincount=0
-    chkin=range(20)
-    chkinloc=range(20)
+    chkin=range(30)
+    chkinloc=range(30)
     #chkinemail=range(20)
     Shout.objects.all().delete()
     for row in cur.execute("SELECT * FROM ribbit_app_bookpasser"):    
         if keywords == row[2]:
-            # print keywords
-            # print row[2]
+            print "keywords" + keywords
+            print "row[2]" + row[2]
             chkin[chkincount] = row[2]
             chkinloc[chkincount] = row[4] + " || " + "email: " + row[3]
             print chkin[chkincount]
